@@ -9,7 +9,11 @@ soup = BeautifulSoup(target, "html.parser")
 
 class Function:
   def __init__(self):
+    self.num = 0
     print("코로나 바이러스 감염증 정보 안내")
+    self.hello()
+
+  def hello(self):
     print("1. 예방 수칙 보기")
     print("2. 일일 확진자 수 보기")
     print("3. 누적 확진율 보기")
@@ -23,6 +27,8 @@ class Function:
       for line in file:
         print(line.strip('\n'))
     
+    self.hello()
+    
   def num_2(self):
     self.nums = []
     for item in soup.select("div.datalist"):
@@ -31,12 +37,16 @@ class Function:
 
     print("현재까지 오늘 코로나 확진자 수는 ", sum(self.nums), "명입니다.")
 
+    self.hello()
+
   def num_3(self):
     for item in soup.select("div.info_core"):
       for data in item.select("span.num"):
         self.percent = data.string
 
     print("현재까지 계산된 누적 확진율은 ", self.percent, "입니다.")
+
+    self.hello()
     
   def num_4(self):
     self.name = str(input('이름을 입력하세요. >>> '))
@@ -58,6 +68,8 @@ class Function:
 
     self.excel_save(self.nowDate, self.nowTime, self.name, self.result)
 
+    self.hello()
+
   def excel_save(self, nowDate, nowTime, name, result):
     wb = openpyxl.load_workbook('코로나 현황.xlsx')
     sheet = wb.active
@@ -68,9 +80,9 @@ class Function:
     print("프로그램이 종료됩니다. 감사합니다.")
     quit()
 
-while(true):
-  user = Function()
+user = Function()
 
+while True:
   if user.num == 1:
     user.num_1()
   elif user.num == 2:
